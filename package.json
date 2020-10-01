@@ -1,0 +1,24 @@
+{
+  "name": "mindsling-backend",
+  "version": "0.0.0",
+  "description": "Backend server for mindslin application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cybrnode/mindsling-backend.git"
+  },
+  "keywords": [
+    "MIND",
+    "SLING",
+    "E-LEARNING"
+  ],
+  "author": "Zeeshan Iqbal (zeeshan.iqbal.cs@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cybrnode/mindsling-backend/issues"
+  },
+  "homepage": "https://github.com/cybrnode/mindsling-backend#readme"
+}
