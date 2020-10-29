@@ -10,3 +10,5 @@ mv dev.env .env
 npm run dev-start
 
 ```
+
+check students.http for some http requests examples
