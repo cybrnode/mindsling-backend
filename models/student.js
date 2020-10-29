@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const emailValidator = require("email-validator");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
-const utils = require("../utils/utils");
+const Schema = mongoose.Schema;
 
 const studentSchema = mongoose.Schema({
     name: {
@@ -25,7 +26,12 @@ const studentSchema = mongoose.Schema({
     email: {
         type: String,
         required: true,
-    }
+    },
+    school: {
+        type: Schema.ObjectId,
+        required: true,
+        ref: 'School',
+    },
 });
 
 
@@ -47,19 +53,31 @@ studentSchema.statics.register = async function(userData){
 
     newStudent.name  = userData.name;
     newStudent.email = userData.email;
-    newStudent.password_hash = utils.hashPassword(password);
+    newStudent.password_hash = bcrypt.hashSync(
+        userData.password,
+        Number(process.env.SALT_ROUNDS),
+    );
     newStudent.roll_no    = userData.roll_no;
     newStudent.class_name = userData.class_name;
 
     console.log(newStudent);
 
     
-    await newStudent.save();
-    const token = jwt.sign({user: "student"}, process.env.SECRET);
-    return {
-        "token": token
-    };
+    const savedStudent = await newStudent.save();
+
+    return savedStudent;
 }
+
+
+studentSchema.statics.updatePassword = async function (id, password){
+    return this.findByIdAndUpdate(id, {
+        password_hash: bcrypt.hashSync(
+            password,
+            Number(process.env.SALT_ROUNDS),
+        )
+    });
+}
+
 
 const Student = mongoose.model("Student", studentSchema);
 module.exports = Student;
