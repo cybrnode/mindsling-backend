@@ -8,7 +8,7 @@ const classScheduleSchema = Schema({
         ref: "Subject",
         required: true,
     },
-    days: {
+    day: {
         type: String,
         enum: ["Monday", 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         reqired: true,

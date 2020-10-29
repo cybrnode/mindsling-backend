@@ -1,9 +1,91 @@
-GET http://192.168.10.13:3333/api/students HTTP/1.1
+GET http://localhost:3333/api/students HTTP/1.1
 Content-Type: application/json
 
 ###
-GET http://192.168.10.13:3333/api/schools HTTP/1.1
+GET http://localhost:3333/api/schools HTTP/1.1
 Content-Type: application/json
 
 ###
-DELETE http://192.168.10.13:3333/api/schools/5f8056475e7cbd6bec615d53 HTTP/1.1
+DELETE http://localhost:3333/api/schools/5f8056475e7cbd6bec615d53 HTTP/1.1
+
+###
+POST http://localhost:3333/api/students/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "test@student.com",
+    "password": "oldPassword"
+}
+
+###
+# 5f9a72a131e399c7b71c9ec4 Student ID 
+POST http://localhost:3333/api/students/register HTTP/1.1
+content-type: application/json
+
+{
+    "name": "sample",
+    "email": "test2@student.com",
+    "roll_no": "2",
+    "class_name": "idk",
+    "password": "oldPassword"
+}
+
+# 5f9a827464c42ad7d83eaa59 Student ID (you can obtain one by exploring the db after /students/register )
+###
+POST http://localhost:3333/api/students/change-password/5f9a827464c42ad7d83eaa59
+content-type: application/json
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoic3R1ZGVudCIsImlkIjoiNWY5YTczMWYzOGZjNjNjODJiYWRkYjZmIiwiaWF0IjoxNjAzOTU4NTQyfQ.76hyl2sAwf23iLGOTdWIEiRrpx8BCggL76VJHNX07O0
+
+{
+    "oldPassword": "ping",
+    "newPassword": "newPassword"
+}
+
+
+
+###
+# 5f9a827464c42ad7d83eaa59 Student ID 
+POST http://localhost:3333/api/students/update-data/5f9a827464c42ad7d83eaa59 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "updatedSample",
+    "email": "test2@student.com",
+    "roll_no": "87687",
+    "class_name": "asdkljasl",
+    "password": "oldPassword",
+    "ASKJDHLAKSJDH":"ASDKAJSDHKJSADH"
+}
+
+
+
+
+###
+#Create a new class
+POST http://localhost:3333/api/classes HTTP/1.1
+content-type: application/json
+
+{
+    "name": "10th-grade"
+}
+
+
+###
+GET http://localhost:3333/api/classes HTTP/1.1
+content-type: application/json
+
+
+# 5f9aa294280344f816caf793 class ID
+### 
+GET http://localhost:3333/api/classes/5f9aa294280344f816caf793 HTTP/1.1
+content-type: application/json
+
+
+# 5f9aa294280344f816caf793 class ID
+### 
+GET http://localhost:3333/api/classes/class-schedule/10th-grade HTTP/1.1
+content-type: application/json
+
+###
+GET http://localhost:3333/api/classes/exam-schedule/10th-grade HTTP/1.1
+content-type: application/json

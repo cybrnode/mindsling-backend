@@ -8,7 +8,7 @@ const subjectSchema = Schema({
         required: true
     },
     class: {
-        type: ObjectId,
+        type: Schema.ObjectId,
         ref: "SchoolClass",
         required: true,
     }

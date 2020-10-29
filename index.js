@@ -12,6 +12,7 @@ const killPort = require("kill-port");
 
 const studentRoutes = require("./routes/student");
 const schoolRoutes = require("./routes/school");
+const classRoutes = require("./routes/school-class");
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 
 app.use("/api/students", studentRoutes);
 app.use("/api/schools", schoolRoutes);
+app.use("/api/classes", classRoutes);
 
 // app.use(expressWinston.logger({
 //     transports: [
