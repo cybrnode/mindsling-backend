@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
+const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
 
 const winston = require("winston");
@@ -21,6 +22,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
+app.use(fileUpload());
 
 app.use("/api/students", studentRoutes);
 app.use("/api/schools", schoolRoutes);
@@ -59,12 +61,15 @@ app.use("/api/classes", classRoutes);
 //   ],
 // });
 
-killPort(process.env.PORT, 'tcp').then(function() {
-  console.log("Previos server is down");
-  app.listen(process.env.PORT, function() {
-    // console.log(`PORT ${process.env.PORT} Server is running peacefully`);
-    console.log(`PORT ${process.env.PORT} Server is running peacefully`);
-  });
+app.post("/files", function (req, res) {
+  console.log(req.files);
+  res.send();
+});
+
+
+app.listen(process.env.PORT, function() {
+  // console.log(`PORT ${process.env.PORT} Server is running peacefully`);
+  console.log(`PORT ${process.env.PORT} Server is running peacefully`);
 });
 
 

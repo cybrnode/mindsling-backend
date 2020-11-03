@@ -67,7 +67,11 @@ router.post("/login", function (req, res) {
                         token: token
                     });
                 } else {
-                    res.json({ 'message': 'Invalid Password' });
+                    res
+                    .status(StatusCodes.UNAUTHORIZED)
+                    .json({
+                        message: 'Invalid Password',
+                    });
                 }
 
             }).catch(function (err) {
