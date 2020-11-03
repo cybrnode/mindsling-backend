@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 const emailValidator = require("email-validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const School = require("./school");
+
+const School = require("../school/school");
+const Utils = require("../../utils/utils");
 
 const Schema = mongoose.Schema;
 
@@ -31,7 +33,7 @@ const studentSchema = mongoose.Schema({
     school: {
         type: Schema.ObjectId,
         required: true,
-        ref: 'School',
+        ref: Utils.entities.STUDENT,
     },
 });
 
@@ -72,52 +74,56 @@ studentSchema.statics.register = async function (userData) {
 }
 
 
-studentSchema.statics.updatePassword = async function (id, oldPassword, newPassword) {
-    const _student = await this.findById(id).exec();
-    if (_student == null) {
+studentSchema.statics.updatePassword = async function(id, oldPassword, newPassword) {
+    
+    const student = await this.findById(id).exec();
+    
+    if (student == null)
         throw new Error("No Student Found");
-    }
 
-    const passwordHash = _student.password_hash;
+    const passwordHash = student.password_hash;
 
-    console.log(_student);
-
+    // TODO: Remove console.log
+    console.log(student);
     console.log(oldPassword);
     console.log(newPassword);
 
     const isValid = await bcrypt.compare(
         oldPassword,
         passwordHash,
-    )
-    if (isValid) {
-        // Set the newPassword
-        _student.password_hash = bcrypt.hashSync(
-            newPassword,
-            Number(process.env.SALT_ROUNDS)
-        );
+    );
 
-        await _student.save();
+    if (! isValid)
+        throw new Error('Invalid password');
 
-        // TODO: Figure out how to invalidate all old password jwts
-        return {
-            "message": "password updated successfully"
-        };
-    } else {
-        // Invalid Old Password
-        return { 'error': 'Invalid Password' };
-    }
+    student.password_hash = bcrypt.hashSync(
+        newPassword,
+        Number(process.env.SALT_ROUNDS)
+    );
+
+    await student.save();
+
+    // TODO: Figure out how to invalidate all old password jwts
+    return {
+        "message": "password updated successfully"
+    };
 }
 
 
 studentSchema.statics.updateData = async function (id, data) {
-    const _student = await this.findById(id).exec();
-    if (_student == null) {
-        throw new Error("No Student Found");
-    }
+    
+    const student = await this.findById(id).exec();
+    
+    if (student == null)
+        throw new Error('No Student Found');
+    
     await _student.update(data);
-    return {'message': 'data updated successfully'};
+    
+    return {
+        message:'data updated successfully'
+    };
 }
 
 
-const Student = mongoose.model("Student", studentSchema);
+const Student = mongoose.model(Utils.entities.STUDENT, studentSchema);
 module.exports = Student;

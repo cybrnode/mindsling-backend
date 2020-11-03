@@ -3,8 +3,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const StatusCodes = require("http-status-codes").StatusCodes;
 
-const utils = require("../utils/utils");
-const Student = require("../models/student");
+const utils = require("../../utils/utils");
+const Student = require("../../models/users/student");
 
 const router = express.Router();
 

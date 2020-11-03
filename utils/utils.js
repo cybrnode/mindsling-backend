@@ -16,7 +16,7 @@ function authStudent(req, res, next) {
 
     jwt.verify(TOKEN, SECRET, function(err, decoded) {
         
-        if (err){
+        if(err) {
             res.status(StatusCodes.UNAUTHORIZED)
                 .json({
                 message: err.message,
@@ -43,3 +43,11 @@ const errorHandler = function (req, res, err) {
 module.exports.dataErrorHandeler = errorHandler;
 module.exports.hashPassword = hashPassword;
 module.exports.studentAuthController = authStudent;
+module.exports.entities = {
+    SCHOOL: 'School',
+    STUDENT: 'Student',
+    SCHOOL_CLASS: 'Class',
+    CLASS_SCHEDULE: 'ClassSchedule',
+    EVENT: 'Event',
+    SUBJECT: 'Subject',
+};

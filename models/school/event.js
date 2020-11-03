@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const Utils = require("../../utils/utils");
+
 const Schema = mongoose.Schema;
 
 const eventSchema = Schema({
@@ -22,11 +24,17 @@ const eventSchema = Schema({
     },
     created_by: {
         type: Schema.Types.ObjectId,
+        ref: Utils.entities.STUDENT,
     },
     guests: {
-        type: [Schema.Types.ObjectId]
+        type: [Schema.Types.ObjectId],
+        ref: Utils.entities.STUDENT,
+    },
+    school: {
+        type: Schema.Types.ObjectId,
+        ref: Utils.entities.SCHOOL,
     }
 });
 
-const Event = mongoose.model("Event", eventSchema);
+const Event = mongoose.model(Utils.entities.EVENT, eventSchema);
 module.exports = Event;

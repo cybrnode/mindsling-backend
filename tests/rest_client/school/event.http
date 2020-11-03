@@ -1,0 +1,2 @@
+
+GET http://localhost:3333/api/schools/5f8056475e7cbd6bec615d53/events/ HTTP/1.1

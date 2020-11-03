@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Utils = require("../../../utils/utils")
 
 const Schema = mongoose.Schema;
 
@@ -14,5 +15,5 @@ const subjectSchema = Schema({
     }
 });
 
-const Subject = mongoose.model("Subject", subjectSchema);
+const Subject = mongoose.model(Utils.entities.SUBJECT, subjectSchema);
 module.exports = Subject;

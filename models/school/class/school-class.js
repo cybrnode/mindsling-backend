@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Utils = require("../../../utils/utils");
 
 const Schema = mongoose.Schema;
 
@@ -20,5 +21,5 @@ const classSchema = Schema({
     }],
 });
 
-const SchoolClass = mongoose.model("SchoolClass", classSchema);
+const SchoolClass = mongoose.model(Utils.entities.SCHOOL_CLASS, classSchema);
 module.exports = SchoolClass;

@@ -11,9 +11,9 @@ const expressWinston = require("express-winston");
 
 const killPort = require("kill-port");
 
-const studentRoutes = require("./routes/student");
-const schoolRoutes = require("./routes/school");
-const classRoutes = require("./routes/school-class");
+const studentRoutes = require("./routes/users/student");
+const schoolRoutes = require("./routes/school/school");
+const classRoutes = require("./routes/school/class/school-class");
 
 dotenv.config();
 

@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
+const Utils = require("../../../utils/utils");
 
 const Schema = mongoose.Schema;
 
 const classScheduleSchema = Schema({
     subject: {
         type: Schema.ObjectId,
-        ref: "Subject",
+        ref: Utils.entities.SUBJECT,
         required: true,
     },
     day: {
@@ -23,5 +24,5 @@ const classScheduleSchema = Schema({
     }
 });
 
-const ClassSchedule = mongoose.model("ClassSchedule", classScheduleSchema);
+const ClassSchedule = mongoose.model(Utils.entities.CLASS_SCHEDULE, classScheduleSchema);
 module.exports = ClassSchedule;

@@ -7,7 +7,7 @@ const Student = require("../../../models/student");
 */
 
 function async createEvent(){
-
+    
 }
 
 createEvent();

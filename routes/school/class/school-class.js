@@ -1,13 +1,15 @@
-const express = require("express");
-const ClassSchedule = require("../models/schedule");
+const express = require("express")
 const StatusCodes = require("http-status-codes").StatusCodes;
 
-const School = require("../models/school");
-const Subject = require("../models/subject");
-const SchoolClass = require("../models/school-class");
-const utils = require("../utils/utils");
+const School = require("../../../models/school/school");
+const SchoolClass = require("../../../models/school/class/school-class");
+const Subject = require("../../../models/school/class/subject");
+const ClassSchedule = require("../../../models/school/class/schedule");
+const utils = require("../../../utils/utils");
+
 
 const router = express.Router();
+
 
 router.get('/?', function (req, res) {
     SchoolClass.find().then(function (schoolClasses) {
@@ -52,6 +54,8 @@ router.delete('/:id', function (req, res) {
 });
 
 
+
+// TODO: To be fixed
 router.get('/class-schedule/:class_name', async (req, res) => {
     const className = req.params.class_name;
     const c = await SchoolClass.findOne({ 'name': className }).populate();
@@ -89,10 +93,10 @@ router.get('/exam-schedule/:class_name', async (req, res) => {
     const s2 = new Subject({ name: "Sports", class: c._id });
     const s3 = new Subject({ name: "Random Subject with a long name", class: c._id });
     new ClassSchedule();
-    class_s = new ClassSchedule({ subject: s, day: 'Monday', start_time: Date.now()})
-    class_1 = new ClassSchedule({ subject: s1, day: 'Tuesday', start_time: Date.now()})
+    class_s = new ClassSchedule({ subject:  s, day: 'Monday',   start_time: Date.now()})
+    class_1 = new ClassSchedule({ subject: s1, day: 'Tuesday',  start_time: Date.now()})
     class_2 = new ClassSchedule({ subject: s2, day: 'Thursday', start_time: Date.now()})
-    class_3 = new ClassSchedule({ subject: s3, day: 'Friday', start_time: Date.now()})
+    class_3 = new ClassSchedule({ subject: s3, day: 'Friday',   start_time: Date.now()})
 
     return res.json([class_s, class_1, class_2, class_3]);
 })
