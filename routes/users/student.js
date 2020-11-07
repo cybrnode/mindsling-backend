@@ -24,7 +24,8 @@ router.post("/register", async function (req, res) {
         }, process.env.SECRET);
 
         return res.send({
-            token: token
+            token: token,
+            student: registeredStudent,
         });
 
     }).catch((err) => utils.dataErrorHandeler(req, res, err));
@@ -64,7 +65,8 @@ router.post("/login", function (req, res) {
                         id: selectedStudent._id,
                     }, process.env.SECRET);
                     res.json({
-                        token: token
+                        token: token,
+                        student: selectedStudent,
                     });
                 } else {
                     res

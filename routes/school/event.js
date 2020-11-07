@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/?', function(req, res) {
     
-    const schoolId = req.studentId;
+    const schoolId = req.schoolId;
     
     Event.find({
         school: schoolId,
@@ -44,7 +44,7 @@ router.delete('/:eventId', function(req, res) {
 
 router.get('/today', function (req, res){
 
-    const schoolId = req.studentId;
+    const schoolId = req.schoolId;
     
     // TODO: Time query for today
     Event.find({
@@ -58,7 +58,7 @@ router.get('/today', function (req, res){
 
 router.get('/upcoming', function (req, res){
 
-    const schoolId = req.studentId;
+    const schoolId = req.schoolId;
     
     // TODO: Time query for upcoming
     Event.find({
@@ -72,7 +72,7 @@ router.get('/upcoming', function (req, res){
 
 router.get('/past', function (req, res){
 
-    const schoolId = req.studentId;
+    const schoolId = req.schoolId;
     
     // TODO: Time query for past
     Event.find({

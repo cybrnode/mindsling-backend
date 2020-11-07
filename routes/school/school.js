@@ -5,15 +5,17 @@ const School = require('../../models/school/school');
 const utils = require('../../utils/utils');
 
 const EventRoute = require('./event');
-
+const SchoolClassRoute = require('./class/school-class');
 
 const router = express.Router();
 
-// MIDDLEWARE: For events in this school
-router.use('/:student_id/events', function(req, res, next){
-    req.studentId = req.params.student_id;
-    next();
-}, EventRoute);
+
+// -- CRUD Routes
+router.post('/?', function(req, res) {
+    School.create(req.body).then(function(newSchool) {
+        res.json(newSchool);
+    }).catch((err) => utils.dataErrorHandeler(req, res, err));
+});
 
 
 router.get('/?', function(req, res) {
@@ -30,10 +32,15 @@ router.get('/:id', function(req, res) {
 });
 
 
-router.post('/?', function(req, res) {
-    console.log(res.body);
-    School.save(req.body).then(function(newSchool) {
-        res.json(newSchool);
+// TODO: Update is missing
+
+
+// TODO: Shutdown this dangerous function.
+router.delete('/?', function(req, res){
+    School.deleteMany().then(function(){
+        res.json({
+            message: 'Successfully removed all Schools'
+        });
     }).catch((err) => utils.dataErrorHandeler(req, res, err));
 });
 
@@ -55,6 +62,21 @@ router.delete('/:id', function(req, res) {
         }
     }).catch((err) => utils.dataErrorHandeler(req, res, err));
 });
+
+
+// MIDDLEWARES
+
+// Middleware for events in school
+router.use('/:schoolId/events', function(req, res, next){
+    req.schoolId = req.params.schoolId;
+    next();
+}, EventRoute);
+
+// Middleware for classes in school
+router.use('/:schoolId/classes', function(req, res, next){
+    req.schoolId = req.params.schoolId;
+    next();
+}, SchoolClassRoute);
 
 
 module.exports = router;

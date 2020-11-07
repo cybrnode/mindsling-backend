@@ -1,0 +1,29 @@
+@hostname = localhost
+@port = 3333
+@schoolId1 = 5fa67eb080f1f015300b971e
+@schoolId2 = 5fa67eb580f1f015300b971f
+@schoolId3 = 5fa67eba80f1f015300b9720
+@schoolId = {{schoolId3}}
+@class1school1 = 5fa6836880f1f015300b9723
+@class2school1 = 5fa6837780f1f015300b9724
+@class3school1 = 5fa6837d80f1f015300b9725
+@class4school2 = 5fa6855880f1f015300b9726
+@class5school2 = 5fa6856280f1f015300b9727
+@class6school2 = 5fa6857c80f1f015300b9728
+@classId = {{class6school2}}
+
+###
+POST  http://{{hostname}}:{{port}}/api/schools/{{schoolId}}/classes HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Grade 6"
+}
+
+
+###
+GET http://{{hostname}}:{{port}}/api/schools/{{schoolId}}/classes HTTP/1.1
+
+
+###
+GET http://{{hostname}}:{{port}}/api/schools/{{schoolId}}/classes/{{classId}} HTTP/1.1

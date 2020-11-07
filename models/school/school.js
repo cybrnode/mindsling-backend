@@ -5,13 +5,15 @@ const Utils = require("../../utils/utils");
 
 const Schema = mongoose.Schema;
 
+
 const schoolSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true,
+        unique: [true, 'School name should be unique'],
     }
 });
+
 
 schoolSchema.plugin(uniqueValidator);
 const School = mongoose.model(Utils.entities.SCHOOL, schoolSchema);

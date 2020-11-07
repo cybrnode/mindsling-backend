@@ -12,6 +12,7 @@ const studentSchema = mongoose.Schema({
     name: {
         type: String,
         required: true,
+        nullable: false,
     },
     roll_no: {
         type: String,
@@ -32,13 +33,31 @@ const studentSchema = mongoose.Schema({
     },
     school: {
         type: Schema.ObjectId,
-        required: true,
         ref: Utils.entities.STUDENT,
+        required: true,
+        nullable: false,
     },
+    school_class: {
+        type: Schema.ObjectId,
+        ref: Utils.entities.SCHOOL_CLASS,
+        // TODO: un comment this after testing
+        // required: true,
+        // nullable: false,
+    },
+    profile_picture: {
+        type: Schema.Types.String,
+        required: true,
+        nullable: false,
+        // TODO: Improve this thing too
+        default: 'https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg',
+    }
 });
 
 
 studentSchema.statics.register = async function (userData) {
+
+    // TODO: Remove sensitive information log
+    console.log(userData);
 
     const newStudent = new this();
 
@@ -56,17 +75,20 @@ studentSchema.statics.register = async function (userData) {
 
     newStudent.name = userData.name;
     newStudent.email = userData.email;
+    newStudent.profile_picture = userData.profile_picture;
+
     newStudent.password_hash = bcrypt.hashSync(
         userData.password,
         Number(process.env.SALT_ROUNDS),
     );
+
     newStudent.roll_no = userData.roll_no;
     newStudent.class_name = userData.class_name;
 
     newStudent.school = new School({ name: "Default School" });
 
+    // TODO: Remove Student log
     console.log(newStudent);
-
 
     const savedStudent = await newStudent.save();
 

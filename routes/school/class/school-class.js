@@ -11,11 +11,29 @@ const utils = require("../../../utils/utils");
 const router = express.Router();
 
 
-router.get('/?', function (req, res) {
-    SchoolClass.find().then(function (schoolClasses) {
-        res.json(schoolClasses);
+// -- CRUD - SchoolClass
+
+router.post('/?', function (req, res) {
+
+    const newSchoolClass = new SchoolClass();
+
+    newSchoolClass.name = req.body.name;
+    newSchoolClass.school = req.schoolId;
+
+    newSchoolClass.save().then(function(savedClass) {
+        res.json(savedClass);
     }).catch((err) => utils.dataErrorHandeler(req, res, err));
 });
+
+
+router.get('/?', function (req, res) {
+    SchoolClass.find({
+        school: req.schoolId,
+    }).then(function (schoolClasses) {
+        res.json(schoolClasses);
+    }).catch((err) => utils.dataErrorHandeler(req,))
+});
+
 
 router.get('/:id', function (req, res) {
     SchoolClass.findById(req.params.id).then(function (schoolClass) {
@@ -23,17 +41,6 @@ router.get('/:id', function (req, res) {
     }).catch((err) => utils.dataErrorHandeler(req, res, err));
 });
 
-router.post('/?', function (req, res) {
-    console.log(res.body);
-
-    // This needs attention... what to do about this ? 
-    // why does a School model even exist ?
-    req.body.school = new School({ name: "Default School" });
-
-    SchoolClass.create(req.body).then(function (newSchoolClass) {
-        res.json(newSchoolClass);
-    }).catch((err) => utils.dataErrorHandeler(req, res, err));
-});
 
 router.delete('/:id', function (req, res) {
     SchoolClass.findByIdAndDelete(req.params.id).then(function (deletedSchoolClass) {

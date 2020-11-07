@@ -1,0 +1,14 @@
+@hostname = localhost
+@port = 3333
+
+
+###
+# Register a new Student in the system
+POST https://{{hostname}}:{{port}}/students/register/ HTTP/1.1
+Content-Type: application/json
+{
+    "name": "Test Student 1",
+    "email": "student@test.com",
+    "password": "12345678",
+    
+}

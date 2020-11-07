@@ -1,0 +1,32 @@
+@hostname = localhost
+@port = 3333
+@schoolID = lalncnlkkdladlal
+
+###
+POST http://{{hostname}}:{{port}}/api/schools
+Content-Type: application/json
+
+{
+    "name": "Test School 1"
+}
+
+
+###
+GET http://{{hostname}}:{{port}}/api/schools
+
+
+###
+# TODO: Get school byId is to be implemented
+
+
+###
+# TODO: update is missing
+
+
+###
+# TODO: Dangerous remove all schools
+DELETE http://{{hostname}}:{{port}}/api/schools
+
+
+###
+DELETE http://{{hostname}}:{{port}}/api/schools/{{schoolId}}
